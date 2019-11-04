@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:DirectComparator.Dictionaries">
+
+    <Style TargetType="{x:Type ListViewItem}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding StatusFile}" Value="FileInFirstDir">
+                <Setter Property="Background" Value="Red" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding StatusFile}" Value="FileInSecondDir">
+                <Setter Property="Background" Value="Blue" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding StatusFile}" Value="FileInBothDirSameSize">
+                <Setter Property="Background" Value="Green" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding StatusFile}" Value="FileInBothDirDiffSize">
+                <Setter Property="Background" Value="Yellow" />
+            </DataTrigger>
+            
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
