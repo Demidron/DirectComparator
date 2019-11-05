@@ -1,5 +1,4 @@
-﻿using DirectComparator.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,71 +7,28 @@ using System.Threading.Tasks;
 
 namespace DirectComparator.Services
 {
-    public static class FileComparator
+    public class FileComparator
     {
-        public static FileInfo[] GetDirFiles(string PathDir)
+        public  List<FileInfo> GetDirFiles(string PathDir)
         {
             var dir = new DirectoryInfo(PathDir);
 
-            FileInfo[] files = dir.GetFiles();
+            var files = dir.GetFiles().ToList();
             return files;
-           
         }
-        public static FileInfo[] GetFileOnlyInFirstDir(List<FileInfo> l1, List<FileInfo> l2)
+        public  IEnumerable<FileInfo> GetUniqueFiles(List<FileInfo> fileList, List<FileInfo> compareWith)
         {
-            
-            var fs = l1.Where(x => !l2.Exists(y => y.Name == x.Name)).ToArray();
-            return fs;
+            return fileList.Where(x => !compareWith.Exists(y => y.Name == x.Name));
         }
 
-        public static FileInfo[] GetFileInBothDirSameSize (List<FileInfo> l1, List<FileInfo> l2)
+        public  IEnumerable<FileInfo> GetFileDuplicatesSameSize(List<FileInfo> l1, List<FileInfo> l2)
         {
-            var fs = l1.Where(x => l2.Exists(y => y.Name == x.Name && y.Length == x.Length)).ToArray();
-            return fs;
+            return l1.Where(x => l2.Exists(y => y.Name == x.Name && y.Length == x.Length)); 
         }
 
-        public static FileInfo[] GetFileInBothDirDiffSize(List<FileInfo> l1, List<FileInfo> l2)
+        public  IEnumerable<FileInfo> GetFileDuplicatesDiffSize(List<FileInfo> l1, List<FileInfo> l2)
         {
-            var fs = l1.Where(x => l2.Exists(y => y.Name == x.Name && y.Length != x.Length)).ToArray();
-            return fs;
+            return l1.Where(x => l2.Exists(y => y.Name == x.Name && y.Length != x.Length));   
         } 
-        public static IEnumerable<CompareFileInfo> CompareFileMass(string PathDir1, string PathDir2)
-        {
-            var l1 = GetDirFiles(PathDir1).ToList();
-            var l2 = GetDirFiles(PathDir2).ToList();
-            var res = GetFileOnlyInFirstDir(l1, l2).Select(z => new CompareFileInfo()
-            {
-                FileName = z.Name,
-                SizeInBytes = z.Length,
-                LastChangeDate = z.LastWriteTime,
-                StatusFile = StatusFile.FileInFirstDir
-            }).ToList();
-
-            res = res.Union(GetFileOnlyInFirstDir(l2, l1).Select(z => new CompareFileInfo()
-            {
-                FileName = z.Name,
-                SizeInBytes = z.Length,
-                LastChangeDate = z.LastWriteTime,
-                StatusFile = StatusFile.FileInSecondDir
-            })).ToList();
-
-            res = res.Union(GetFileInBothDirSameSize(l1, l2).Select(z => new CompareFileInfo()
-            {
-                FileName = z.Name,
-                SizeInBytes = z.Length,
-                LastChangeDate = z.LastWriteTime,
-                StatusFile = StatusFile.FileInBothDirSameSize
-            })).ToList();
-
-            res = res.Union(GetFileInBothDirDiffSize(l1, l2).Select(z => new CompareFileInfo()
-            {
-                FileName = z.Name,
-                SizeInBytes = z.Length,
-                LastChangeDate = z.LastWriteTime,
-                StatusFile = StatusFile.FileInBothDirDiffSize
-            })).ToList();
-
-            return res;
-        }
     }
 }

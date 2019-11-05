@@ -24,7 +24,7 @@ namespace DirectComparator.Views
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new DataManager();
+            this.DataContext = new MainViewModel();
         }
 
     }

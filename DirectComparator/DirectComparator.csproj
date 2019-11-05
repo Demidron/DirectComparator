@@ -69,12 +69,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\MyCommand.cs" />
-    <Compile Include="Commands\OpenDirectoryCommand.cs" />
     <Compile Include="Models\CompareFileInfo.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\FileComparator.cs" />
-    <Compile Include="ViewModels\DataManager.cs" />
+    <Compile Include="ViewModels\BusinessCompareFileInfo.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

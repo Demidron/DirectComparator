@@ -11,7 +11,7 @@
 
     <StackPanel>
         <GroupBox Header="Директории для сравнения">
-            <StackPanel >
+            <StackPanel DataContext="{Binding Path=BusinessCompareFileInfo}">
                 <Label Content="Директория 1:"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -35,8 +35,15 @@
             </StackPanel>
         </GroupBox>
         <Button Content="Сравнить" Width="100" Command="{Binding Path=CompareDir}"/>
-        <ListView x:Name="fileList" ItemsSource="{Binding Path=FoundFiles}">
+        <StackPanel>
+            <CheckBox Content="Файлы первой директории" IsChecked="{Binding Path=IsFileOnlyFirstDir, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+            <CheckBox Content="Файлы второй директории" IsChecked="{Binding Path=IsFileOnlySecondDir, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+            <CheckBox Content="в обеих директориях " IsChecked="{Binding Path=IsFileBothDirSameSize, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+            <CheckBox Content="в обеих директориях с разным размером" IsChecked="{Binding Path=IsBothDirDiffSize, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+        </StackPanel>
+        <ListView x:Name="fileList" Height="230" ItemsSource="{Binding Path=FoundFiles}">
             <ListView.View>
+                
                 <GridView>
                     <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Path=FileName}"/>
                     <GridViewColumn Header="Размер" DisplayMemberBinding="{Binding Path=SizeInKB}" />
