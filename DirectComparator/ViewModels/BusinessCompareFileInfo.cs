@@ -33,7 +33,7 @@ namespace DirectComparator.ViewModels
         public string Path2
         {
             get { return path2; }
-            set { path2 = value; OnPropertyChanged("Path2"); MessageBox.Show("Srabotalo", "Exception ", MessageBoxButton.OK); }
+            set { path2 = value; OnPropertyChanged("Path2");}
         }
         public List<CompareFileInfo> GetFileOnlyInFirstDir()
         {

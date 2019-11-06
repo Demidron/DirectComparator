@@ -117,13 +117,16 @@ namespace DirectComparator.ViewModels
             }
             catch (DirectoryNotFoundException e)
             {
-                MessageBox.Show("Not found directory: " + e.Message, "Exception ", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Не найдена директория: " + e.Message, "Exception ", MessageBoxButton.OK, MessageBoxImage.Warning);
 
             }
             catch (ArgumentNullException e)
             {
-                MessageBox.Show("Not found directory: " + e.ParamName, "Exception ", MessageBoxButton.OK, MessageBoxImage.Warning);
-
+                MessageBox.Show("Поля не заполнены:" + e.ParamName, "Exception ", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            catch(UnauthorizedAccessException e)
+            {
+                MessageBox.Show("Нет прав доступа к директории"+ e.Message, "Exception ", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
         }
